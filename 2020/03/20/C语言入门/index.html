@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>C语言入门（持续更新中） | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言我是一个刚刚接触C语言的新手，现在仅以博客来记录我每天学习的情况，也可以说是笔记，后来者也可以跟着一起学习。（多思考，多敲代码）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C语言入门（持续更新中）">
+<meta property="og:url" content="http://yoursite.com/2020/03/20/C%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="前言我是一个刚刚接触C语言的新手，现在仅以博客来记录我每天学习的情况，也可以说是笔记，后来者也可以跟着一起学习。（多思考，多敲代码）">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-03-20T00:55:52.682Z">
+<meta property="article:modified_time" content="2020-03-20T00:05:34.000Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="C语言入门">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-C语言入门" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/03/20/C%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" class="article-date">
+  <time datetime="2020-03-20T00:55:52.682Z" itemprop="datePublished">2020-03-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      C语言入门（持续更新中）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>我是一个刚刚接触C语言的新手，现在仅以博客来记录我每天学习的情况，也可以说是笔记，后来者也可以跟着一起学习。（多思考，多敲代码）</p>
+<a id="more"></a>
+<hr>
+<h1 id="第一课"><a href="#第一课" class="headerlink" title="第一课"></a>第一课</h1><h2 id="学习C语言所需要的基础知识"><a href="#学习C语言所需要的基础知识" class="headerlink" title="学习C语言所需要的基础知识"></a>学习C语言所需要的基础知识</h2><p>C语言是一门较基础的语言，学习C语言能帮助后续的学习，C语言中函数与指针尤为重要。在学习C语言前，必须得掌握一定的基础知识（认识符号，关键字等）。 </p>
+<h3 id="32个关键字"><a href="#32个关键字" class="headerlink" title="32个关键字"></a>32个关键字</h3><p>auto ：声明自动变量<br>short ：声明短整型变量或函数<br>int： 声明整型变量或函数<br>long ：声明长整型变量或函数<br>float：声明浮点型变量或函数<br>double ：声明双精度变量或函数<br>char ：声明字符型变量或函数<br>struct：声明结构体变量或函数<br>union：声明共用数据类型<br>enum ：声明枚举类型<br>typedef：用以给数据类型取别名<br>const ：声明只读变量<br>unsigned：声明无符号类型变量或函数<br>signed：声明有符号类型变量或函数<br>extern：声明变量是在其他文件正声明<br>register：声明寄存器变量<br>static ：声明静态变量<br>volatile：说明变量在程序执行中可被隐含地改变<br>void ：声明函数无返回值或无参数，声明无类型指针<br>if:条件语句<br>else ：条件语句否定分支（与 if 连用）<br>switch :用于开关语句<br>case：开关语句分支<br>for：一种循环语句<br>do ：循环语句的循环体<br>while ：循环语句的循环条件<br>goto：无条件跳转语句<br>continue：结束当前循环，开始下一轮循环<br>break：跳出当前循环<br>default：默认<br>sizeof：计算数据类型长度<br>return ：子程序返回语句（可以带参数，也可不带参数）循环条件</p>
+<hr>
+<pre><code># include &lt;stdio.h&gt;
+
+int main(void)
+{
+printf(&quot;欢迎大家学习C语言!\n&quot;);
+
+return 0;
+}  </code></pre><p>最简单的C程序  </p>
+<p>C程序初见<br>计算一元二次方程</p>
+<pre><code># include &lt;stdio.h&gt;
+# include &lt;math.h&gt;
+
+int main(void)
+{
+    //把三个系数保存到计算机中
+    int a = 1;  //=不表示相等，表示赋值
+    int b = 5;
+    int c = 6;
+    double delta; //delt存放的是 b*b - 4*a*c
+    double x1; //存放一元二次方程的其中一个解
+    double x2; //存放一元二次方程的其中一个解
+
+    delta = b*b - 4*a*c;
+
+    if (delta &gt; 0)
+    {
+        x1 = (-b + sqrt(delta)) / (2*a);
+        x2 = (-b - sqrt(delta)) / (2*a);
+        printf(&quot;该一元二次方程有两个解, x1 = %f, x2 = %f\n&quot;, x1, x2);
+    }
+    else if (delta == 0)
+    {
+        x1 = (-b) / (2*a);
+        x2 = x1;  //右边赋给左边
+        printf(&quot;该一元二次方程有一个唯一解, x1 = x2 = %f\n&quot;, x1);
+    }
+    else
+    {
+        printf(&quot;无解\n&quot;);
+    }
+
+    return 0;
+}</code></pre><hr>
+<h3 id="正课"><a href="#正课" class="headerlink" title="正课"></a>正课</h3><pre><code># include &lt;stdio.h&gt;
+
+int main(void)
+{
+//    int i = 10.6; //表示i变量是整型变量， 所谓整型变量就是指i只能存放整数，不能存放实数
+//    printf(&quot;%d\n&quot;, i);
+
+    char i = &apos;M&apos;;
+    printf(&quot;%c\n&quot;, i);
+
+//    double k;
+
+    return 0;
+}</code></pre><hr>
+<h3 id="进制（逢r进1）"><a href="#进制（逢r进1）" class="headerlink" title="进制（逢r进1）"></a>进制（逢r进1）</h3><ul>
+<li>2进制 （计算机内部）</li>
+<li>8进制</li>
+<li>10进制</li>
+<li>16进制</li>
+<li>n进制  </li>
+</ul>
+<h4 id="2进制"><a href="#2进制" class="headerlink" title="2进制"></a>2进制</h4><p>计算机内 0101010101  </p>
+<h4 id="8进制"><a href="#8进制" class="headerlink" title="8进制"></a>8进制</h4><p>表示法 ：01,02,03,04,05,06,07,10,11,12.  </p>
+<h4 id="16进制"><a href="#16进制" class="headerlink" title="16进制"></a>16进制</h4><p>表示法 ：0x1<del>0xf 或者 0X1</del>0XF</p>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><pre><code>int a;  </code></pre><p>上面叫定义变量。 </p>
+<h4 id="变量初始化"><a href="#变量初始化" class="headerlink" title="变量初始化"></a>变量初始化</h4><pre><code>int a;
+a = 1;  </code></pre><p>a = 1; 叫初始化变量。<br>为什么要初始化变量？<br>因为 定义变量是将变量（假设为a）与内存条的一个同于单元对应起来，将变量与该内存单元的地址相连接。在未初始化变量前，变量内存有的是内存条中以前的垃圾值。  </p>
+<pre><code># include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int i;
+
+    printf(&quot;i = %f\n&quot;, i);  //int %d  char %c  flaot %f double %lf  long int %ld
+
+    return 0;
+}</code></pre><p>上面就是未定义变量。  </p>
+<h4 id="输出符"><a href="#输出符" class="headerlink" title="输出符"></a>输出符</h4><p>int          %d<br>char         %c<br>float        %f<br>double       %lf<br>long int     %ld  </p>
+<h3 id="进制转化"><a href="#进制转化" class="headerlink" title="进制转化"></a>进制转化</h3><pre><code># include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int i = 0x32C;
+
+    printf(&quot;i = %d\n&quot;, i);     
+    /*  
+    printf的用法
+    %d表示以十进制输出
+    %x或%X表示以十六进制输出
+    %o表示以八进制输出
+    */
+
+
+    return 0;
+}   </code></pre><h3 id="printf的用法"><a href="#printf的用法" class="headerlink" title="printf的用法"></a>printf的用法</h3><pre><code># include &lt;stdio.h&gt;
+
+int main()
+{
+    //printf(&quot;哈哈!\n&quot;);  //\n表示换行
+
+    //    int i = 10;
+    //    printf(&quot;%o\n&quot;, i);  //d是十进制
+
+
+    int j = 3;
+    int k = 5;
+    printf(&quot;%d %d\n&quot;, j, k);  //OK
+    //printf(&quot;%d\n&quot;, j, k);  //error 输出控制符和输出参数的个数不匹配
+    printf(&quot;i = %d, j = %d\n&quot;, j, k);
+
+    return 0;
+}   </code></pre><h3 id="代码规范"><a href="#代码规范" class="headerlink" title="代码规范"></a>代码规范</h3><pre><code># include &lt;stdio.h&gt;
+
+int main(void)
+{
+    //定义变量
+
+    //对变量进行操作
+
+    //输出值
+
+    return 0;
+}</code></pre><h3 id="char的用法"><a href="#char的用法" class="headerlink" title="char的用法"></a>char的用法</h3><pre><code># include &lt;stdio.h&gt;
+
+int main(void)
+{
+    char ch = &apos;A&apos;;  //4行    OK  等价  char ch;  ch = &apos;A&apos;;
+//    char ch = &quot;AB&quot;;  //error 因为&quot;AB&quot;是字符串， 我们不能把字符串赋给单个字符变量
+//    char ch = &quot;A&quot;;   //error
+
+//    char ch = &apos;AB&apos;; //&apos;AB&apos;是错误的
+
+//    char ch = &apos;B&apos;;  //error, 因为ch变量已经在4行定义了， 这样会导致变量名被重复定义
+
+    ch = &apos;C&apos;;
+    ch = &apos;D&apos;;
+    printf(&quot;%c\n&quot;, ch);
+
+
+    return 0;
+}  </code></pre><h3 id="ASCII码"><a href="#ASCII码" class="headerlink" title="ASCII码"></a>ASCII码</h3><p>A = 65, B = 66, a = 97, 0 = 47.<br>    # include &lt;stdio.h&gt;</p>
+<pre><code>int main(void)
+{
+    char ch = &apos;A&apos;; 
+
+    printf(&quot;%d\n&quot;, ch);
+
+    return 0;
+}  </code></pre><h3 id="scanf的用法"><a href="#scanf的用法" class="headerlink" title="scanf的用法"></a>scanf的用法</h3><ul>
+<li>取地址符&amp;  </li>
+<li>不要加\n  </li>
+<li>输入控制符和非输入控制符  </li>
+</ul>
+<h3 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h3><p>&amp;&amp;<br>||<br>！  </p>
+<h3 id="if的用法"><a href="#if的用法" class="headerlink" title="if的用法"></a>if的用法</h3><ul>
+<li><p>if最简单的用法   </p>
+</li>
+<li><p>if else 的用法  </p>
+</li>
+<li><p>if esle if  else的用法  </p>
+</li>
+<li><p><em>注意*</em> if 只控制一个语句  </p>
+<h4 id="两个程序"><a href="#两个程序" class="headerlink" title="两个程序"></a>两个程序</h4><h1 id="include-lt-stdio-h-gt"><a href="#include-lt-stdio-h-gt" class="headerlink" title="include &lt;stdio.h&gt;"></a>include &lt;stdio.h&gt;</h1><p>   int main(void)<br>   {</p>
+<pre><code>int a, b, c;  //等价于:  int a; int b; int c;
+int t;
+
+printf(&quot;请输入三个整数(中间以空格分隔): &quot;);
+scanf(&quot;%d %d %d&quot;, &amp;a, &amp;b, &amp;c);
+
+//编写代码完成a是最大值  b是中间值  c是最小值
+
+if (a &lt; b)
+{
+    t = a;
+    a = b;
+    b = t;
+}
+
+if (a &lt; c)
+{
+   t = a;
+   a = c;
+   c = t;
+}
+
+if (b &lt; c)
+{
+    t = b;
+    b = c;
+    c = t;
+}
+
+printf(&quot;%d %d %d\n&quot;, a, b, c);
+
+return 0;</code></pre><p>   }  </p>
+</li>
+</ul>
+<p>对任意三个值排序<br>互换看源代码58-60  </p>
+<h5 id="if常见错误"><a href="#if常见错误" class="headerlink" title="if常见错误"></a>if常见错误</h5><p>略  </p>
+<h3 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h3><p>for(1; 2; 3;)<br>     A;   </p>
+<h4 id="for和if的嵌套使用"><a href="#for和if的嵌套使用" class="headerlink" title="for和if的嵌套使用"></a>for和if的嵌套使用</h4><pre><code># include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int i;
+    int sum = 0;  // =0不能省
+
+    for (i=3; i&lt;=100; ++i)
+    {
+        if (i%3 == 0)//如果 i能被3整除
+            sum = sum + i;
+        printf(&quot;sum = %d\n&quot;, sum);
+    }
+
+    return 0;
+}  </code></pre><hr>
+<h3 id="浮点数存储问题"><a href="#浮点数存储问题" class="headerlink" title="浮点数存储问题"></a>浮点数存储问题</h3><pre><code>/*
+    2009年10月23日9:41:49
+    本程序不对， 因为循环中更新的变量不能定义成浮点型
+*/
+
+# include &lt;stdio.h&gt;
+
+int main(void)
+{
+     float i;
+     float sum = 0;  
+
+     for (i=1.0; i&lt;=100; ++i)
+    {
+        sum = sum + 1/i;
+    }
+     printf(&quot;sum = %f\n&quot;, sum);  
+
+     return 0;
+}  </code></pre><h3 id="多个for嵌套使用示例"><a href="#多个for嵌套使用示例" class="headerlink" title="多个for嵌套使用示例"></a>多个for嵌套使用示例</h3><pre><code># include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int i, j;
+
+    for (i=0; i&lt;3; ++i)
+        for (j=2; j&lt;5; ++j)
+            printf(&quot;哈哈!\n&quot;);
+        printf(&quot;嘻嘻!\n&quot;);
+
+    return 0;
+}
+/*
+    在Vc++6.0中的输出结果是:
+----------------------
+哈哈!
+哈哈!
+哈哈!
+哈哈!
+哈哈!
+哈哈!
+哈哈!
+哈哈!
+哈哈!
+嘻嘻!
+Press any key to continue
+----------------------
+*/   </code></pre><h3 id="逗号表"><a href="#逗号表" class="headerlink" title="逗号表"></a>逗号表</h3><pre><code># include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int i;
+    int j = 2;
+
+    i = (j++, ++j, j+2, j-3);
+    printf(&quot;%d\n&quot;, i);
+
+    return 0;
+}  </code></pre><h3 id="前自增与后自增的比较"><a href="#前自增与后自增的比较" class="headerlink" title="前自增与后自增的比较"></a>前自增与后自增的比较</h3><pre><code># include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int i;
+    int j;
+    int k;
+    int m;
+
+    i = j = 3; //等价于 i = 3;  j = 3;
+    k = i++;
+    m = ++j;
+
+    printf(&quot;i = %d, j = %d, k = %d, m = %d\n&quot;, i, j, k, m);
+
+    return 0;
+}
+/*
+    在Vc++6.0中的输出结果是:
+----------------------
+i = 4, j = 4, k = 3, m = 4
+----------------------
+总结:
+    前自增整体表达式的值是i加1之后的值
+    后自增整体表达式的值是i加1之前的值
+*/  </code></pre><p><strong>如何看懂程序</strong>  </p>
+<ul>
+<li>流程  </li>
+<li>语句  </li>
+<li>试数  </li>
+</ul>
+<hr>
+<h3 id="break的用法"><a href="#break的用法" class="headerlink" title="break的用法"></a>break的用法</h3><p>截断循环</p>
+<pre><code># include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int i, j;
+
+    for (i=0; i&lt;3; ++i)
+    {
+        for (j=1; j&lt;4; ++j)
+            break;  //break只能终止距离它最近的循环
+        printf(&quot;同志们好!\n&quot;);
+    }
+
+    return 0;
+}  </code></pre><h3 id="switch的用法"><a href="#switch的用法" class="headerlink" title="switch的用法"></a>switch的用法</h3><pre><code># include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int val;
+
+    printf(&quot;请输入您要进入的楼层: &quot;);
+    scanf(&quot;%d&quot;, &amp;val);
+
+    switch (val)
+    {
+    case 1:
+        printf(&quot;1层开!\n&quot;);
+        break;
+    case 2:
+        printf(&quot;2层开!\n&quot;);
+        //break;
+    case 3:
+        printf(&quot;3层开!\n&quot;);
+        break;
+    default:
+        printf(&quot;没有盖到这一层!\n&quot;);
+        break;
+    }
+
+    return 0;
+}  </code></pre><h3 id="continue的用法"><a href="#continue的用法" class="headerlink" title="continue的用法"></a>continue的用法</h3><ul>
+<li><p>重复循环  </p>
+<pre><code># include &lt;stdio.h&gt;
+
+ int main(void)
+ {
+     int i;
+     char ch;
+
+     scanf(&quot;%d&quot;, &amp;i);
+     printf(&quot;i = %d\n&quot;, i);</code></pre></li>
+</ul>
+<pre><code>   while ( (ch=getchar()) != &apos;\n&apos;)
+       continue;
+   int j;
+   scanf(&quot;%d&quot;, &amp;j);
+   printf(&quot;j = %d\n&quot;, j);
+
+   return 0;
+}  </code></pre><h3 id="do…while用于人机交互"><a href="#do…while用于人机交互" class="headerlink" title="do…while用于人机交互"></a>do…while用于人机交互</h3><pre><code># include &lt;stdio.h&gt;
+# include &lt;math.h&gt;
+
+int main(void)
+{
+    double a, b, c;    
+    double delta;
+    double x1, x2;    
+    char ch;
+
+    do    
+    {    
+        printf(&quot;请输入一元二次方程的三个系数:\n&quot;);
+        printf(&quot;a = &quot;);
+        scanf(&quot;%lf&quot;, &amp;a);
+
+        printf(&quot;b = &quot;);
+        scanf(&quot;%lf&quot;, &amp;b);
+
+        printf(&quot;c = &quot;);
+        scanf(&quot;%lf&quot;, &amp;c);
+
+        delta = b*b - 4*a*c;
+
+        if (delta &gt; 0)
+        {
+            x1 = (-b + sqrt(delta)) / (2*a);
+            x2 = (-b - sqrt(delta)) / (2*a);
+            printf(&quot;有两个解，x1 = %lf, x2 = %lf\n&quot;, x1, x2);
+        }
+        else if (0 == delta)
+        {
+            x1 = x2 = (-b) / (2*a);
+            printf(&quot;有唯一解，x1 = x2 = %lf\n&quot;, x1, x2);
+        }
+        else
+        {
+            printf(&quot;无实数解!\n&quot;);
+        }
+
+        printf(&quot;您想继续么(Y/N): &quot;);
+        scanf(&quot; %c&quot;, &amp;ch);  //%c前面必须得加一个空格 原因略
+    } while (&apos;y&apos;==ch || &apos;Y&apos;==ch);
+
+    return 0;
+}  </code></pre><hr>
+<p><em>END</em></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/03/20/C%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" data-id="ck7zh47ho00000kv476kt92m5" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" rel="tag">C语言入门</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/03/20/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" rel="tag">C语言入门</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/C%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" style="font-size: 10px;">C语言入门</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/03/20/C%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/">C语言入门（持续更新中）</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/20/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
