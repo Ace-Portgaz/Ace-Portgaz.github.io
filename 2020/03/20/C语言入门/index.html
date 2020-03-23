@@ -16,7 +16,7 @@
 <meta property="og:description" content="前言我是一个刚刚接触C语言的新手，现在仅以博客来记录我每天学习的情况，也可以说是笔记，后来者也可以跟着一起学习。（多思考，多敲代码）">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-03-20T00:55:52.682Z">
-<meta property="article:modified_time" content="2020-03-23T04:13:54.413Z">
+<meta property="article:modified_time" content="2020-03-23T04:22:45.520Z">
 <meta property="article:author" content="Ace-Portgaz">
 <meta property="article:tag" content="C语言入门">
 <meta name="twitter:card" content="summary">
@@ -338,195 +338,8 @@ int main(void)
 <li><p>if esle if  else的用法  </p>
 </li>
 <li><p><em>注意*</em> if 只控制一个语句  </p>
-<h4 id="两个程序"><a href="#两个程序" class="headerlink" title="两个程序"></a>两个程序</h4><h1 id="include-lt-stdio-h-gt"><a href="#include-lt-stdio-h-gt" class="headerlink" title="include &lt;stdio.h&gt;"></a>include &lt;stdio.h&gt;</h1><p>   int main(void)<br>   {</p>
-<pre><code>int a, b, c;  //等价于:  int a; int b; int c;
-int t;
-
-printf(&quot;请输入三个整数(中间以空格分隔): &quot;);
-scanf(&quot;%d %d %d&quot;, &amp;a, &amp;b, &amp;c);
-
-//编写代码完成a是最大值  b是中间值  c是最小值
-
-if (a &lt; b)
-{
-    t = a;
-    a = b;
-    b = t;
-}
-
-if (a &lt; c)
-{
-   t = a;
-   a = c;
-   c = t;
-}
-
-if (b &lt; c)
-{
-    t = b;
-    b = c;
-    c = t;
-}
-
-printf(&quot;%d %d %d\n&quot;, a, b, c);
-
-return 0;</code></pre><p>   }  </p>
-</li>
-</ul>
-<p>对任意三个值排序<br>互换看源代码58-60  </p>
-<h5 id="if常见错误"><a href="#if常见错误" class="headerlink" title="if常见错误"></a>if常见错误</h5><p>略  </p>
-<h3 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h3><p>for(1; 2; 3;)<br>     A;   </p>
-<h4 id="for和if的嵌套使用"><a href="#for和if的嵌套使用" class="headerlink" title="for和if的嵌套使用"></a>for和if的嵌套使用</h4><pre><code># include &lt;stdio.h&gt;
-
-int main(void)
-{
-    int i;
-    int sum = 0;  // =0不能省
-
-    for (i=3; i&lt;=100; ++i)
-    {
-        if (i%3 == 0)//如果 i能被3整除
-            sum = sum + i;
-        printf(&quot;sum = %d\n&quot;, sum);
-    }
-
-    return 0;
-}  </code></pre><hr>
-<h3 id="浮点数存储问题"><a href="#浮点数存储问题" class="headerlink" title="浮点数存储问题"></a>浮点数存储问题</h3><pre><code>/*
-    2009年10月23日9:41:49
-    本程序不对， 因为循环中更新的变量不能定义成浮点型
-*/
-
-# include &lt;stdio.h&gt;
-
-int main(void)
-{
-     float i;
-     float sum = 0;  
-
-     for (i=1.0; i&lt;=100; ++i)
-    {
-        sum = sum + 1/i;
-    }
-     printf(&quot;sum = %f\n&quot;, sum);  
-
-     return 0;
-}  </code></pre><h3 id="多个for嵌套使用示例"><a href="#多个for嵌套使用示例" class="headerlink" title="多个for嵌套使用示例"></a>多个for嵌套使用示例</h3><pre><code># include &lt;stdio.h&gt;
-
-int main(void)
-{
-    int i, j;
-
-    for (i=0; i&lt;3; ++i)
-        for (j=2; j&lt;5; ++j)
-            printf(&quot;哈哈!\n&quot;);
-        printf(&quot;嘻嘻!\n&quot;);
-
-    return 0;
-}
-/*
-    在Vc++6.0中的输出结果是:
-----------------------
-哈哈!
-哈哈!
-哈哈!
-哈哈!
-哈哈!
-哈哈!
-哈哈!
-哈哈!
-哈哈!
-嘻嘻!
-Press any key to continue
-----------------------
-*/   </code></pre><h3 id="逗号表"><a href="#逗号表" class="headerlink" title="逗号表"></a>逗号表</h3><pre><code># include &lt;stdio.h&gt;
-
-int main(void)
-{
-    int i;
-    int j = 2;
-
-    i = (j++, ++j, j+2, j-3);
-    printf(&quot;%d\n&quot;, i);
-
-    return 0;
-}  </code></pre><h3 id="前自增与后自增的比较"><a href="#前自增与后自增的比较" class="headerlink" title="前自增与后自增的比较"></a>前自增与后自增的比较</h3><pre><code># include &lt;stdio.h&gt;
-
-int main(void)
-{
-    int i;
-    int j;
-    int k;
-    int m;
-
-    i = j = 3; //等价于 i = 3;  j = 3;
-    k = i++;
-    m = ++j;
-
-    printf(&quot;i = %d, j = %d, k = %d, m = %d\n&quot;, i, j, k, m);
-
-    return 0;
-}
-/*
-    在Vc++6.0中的输出结果是:
-----------------------
-i = 4, j = 4, k = 3, m = 4
-----------------------
-总结:
-    前自增整体表达式的值是i加1之后的值
-    后自增整体表达式的值是i加1之前的值
-*/  </code></pre><p><strong>如何看懂程序</strong>  </p>
-<ul>
-<li>流程  </li>
-<li>语句  </li>
-<li>试数  </li>
-</ul>
-<hr>
-<h3 id="break的用法"><a href="#break的用法" class="headerlink" title="break的用法"></a>break的用法</h3><p>截断循环</p>
-<pre><code># include &lt;stdio.h&gt;
-
-int main(void)
-{
-    int i, j;
-
-    for (i=0; i&lt;3; ++i)
-    {
-        for (j=1; j&lt;4; ++j)
-            break;  //break只能终止距离它最近的循环
-        printf(&quot;同志们好!\n&quot;);
-    }
-
-    return 0;
-}  </code></pre><h3 id="switch的用法"><a href="#switch的用法" class="headerlink" title="switch的用法"></a>switch的用法</h3><pre><code># include &lt;stdio.h&gt;
-
-int main(void)
-{
-    int val;
-
-    printf(&quot;请输入您要进入的楼层: &quot;);
-    scanf(&quot;%d&quot;, &amp;val);
-
-    switch (val)
-    {
-    case 1:
-        printf(&quot;1层开!\n&quot;);
-        break;
-    case 2:
-        printf(&quot;2层开!\n&quot;);
-        //break;
-    case 3:
-        printf(&quot;3层开!\n&quot;);
-        break;
-    default:
-        printf(&quot;没有盖到这一层!\n&quot;);
-        break;
-    }
-
-    return 0;
-}  </code></pre><h3 id="continue的用法"><a href="#continue的用法" class="headerlink" title="continue的用法"></a>continue的用法</h3><ul>
-<li><p>重复循环  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"># include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">int main(void)</span><br><span class="line">&#123;</span><br><span class="line">	int i;</span><br><span class="line">	char ch;</span><br><span class="line"></span><br><span class="line">	scanf(&quot;%d&quot;, &amp;i);</span><br><span class="line">	printf(&quot;i &#x3D; %d\n&quot;, i);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	while ( (ch&#x3D;getchar()) !&#x3D; &#39;\n&#39;)</span><br><span class="line">		continue;</span><br><span class="line">	int j;</span><br><span class="line">	scanf(&quot;%d&quot;, &amp;j);</span><br><span class="line">	printf(&quot;j &#x3D; %d\n&quot;, j);</span><br><span class="line"></span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="do…while用于人机交互"><a href="#do…while用于人机交互" class="headerlink" title="do…while用于人机交互"></a>do…while用于人机交互</h3><h1 id="include-lt-stdio-h-gt-1"><a href="#include-lt-stdio-h-gt-1" class="headerlink" title="include &lt;stdio.h&gt;"></a>include &lt;stdio.h&gt;</h1><h1 id="include-lt-math-h-gt"><a href="#include-lt-math-h-gt" class="headerlink" title="include &lt;math.h&gt;"></a>include &lt;math.h&gt;</h1><p>  int main(void)<br>  {</p>
+<h4 id="两个程序"><a href="#两个程序" class="headerlink" title="两个程序"></a>两个程序</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br></pre></td><td class="code"><pre><span class="line"># include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">int main(void)</span><br><span class="line">&#123;</span><br><span class="line">int a, b, c;  &#x2F;&#x2F;等价于:  int a; int b; int c;</span><br><span class="line">int t;</span><br><span class="line"></span><br><span class="line">printf(&quot;请输入三个整数(中间以空格分隔): &quot;);</span><br><span class="line">scanf(&quot;%d %d %d&quot;, &amp;a, &amp;b, &amp;c);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;编写代码完成a是最大值  b是中间值  c是最小值</span><br><span class="line"></span><br><span class="line">if (a &lt; b)</span><br><span class="line">&#123;</span><br><span class="line">	t &#x3D; a;</span><br><span class="line">	a &#x3D; b;</span><br><span class="line">	b &#x3D; t;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if (a &lt; c)</span><br><span class="line">&#123;</span><br><span class="line">t &#x3D; a;</span><br><span class="line">a &#x3D; c;</span><br><span class="line">c &#x3D; t;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if (b &lt; c)</span><br><span class="line">&#123;</span><br><span class="line">	t &#x3D; b;</span><br><span class="line">	b &#x3D; c;</span><br><span class="line">	c &#x3D; t;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">printf(&quot;%d %d %d\n&quot;, a, b, c);</span><br><span class="line"></span><br><span class="line">return 0;</span><br><span class="line">&#125;  </span><br><span class="line">&#96;&#96;&#96;  </span><br><span class="line"></span><br><span class="line">对任意三个值排序  </span><br><span class="line">互换看源代码58-60  </span><br><span class="line"></span><br><span class="line">##### if常见错误  </span><br><span class="line">略  </span><br><span class="line">### for循环  </span><br><span class="line">for(1; 2; 3;)  </span><br><span class="line">     A;   </span><br><span class="line">#### for和if的嵌套使用  </span><br><span class="line">    # include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">    int main(void)</span><br><span class="line">    &#123;</span><br><span class="line">	    int i;</span><br><span class="line">	    int sum &#x3D; 0;  &#x2F;&#x2F; &#x3D;0不能省</span><br><span class="line"></span><br><span class="line">	    for (i&#x3D;3; i&lt;&#x3D;100; ++i)</span><br><span class="line">	    &#123;</span><br><span class="line">		    if (i%3 &#x3D;&#x3D; 0)&#x2F;&#x2F;如果 i能被3整除</span><br><span class="line">			    sum &#x3D; sum + i;</span><br><span class="line">		    printf(&quot;sum &#x3D; %d\n&quot;, sum);</span><br><span class="line">	    &#125;</span><br><span class="line">	</span><br><span class="line">	    return 0;</span><br><span class="line">    &#125;  </span><br><span class="line">---</span><br><span class="line">### 浮点数存储问题  </span><br><span class="line"></span><br><span class="line">    &#x2F;*</span><br><span class="line">	    2009年10月23日9:41:49</span><br><span class="line">	    本程序不对， 因为循环中更新的变量不能定义成浮点型</span><br><span class="line">    *&#x2F;</span><br><span class="line"></span><br><span class="line">    # include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">    int main(void)</span><br><span class="line">    &#123;</span><br><span class="line">	     float i;</span><br><span class="line">	     float sum &#x3D; 0;  </span><br><span class="line"></span><br><span class="line">	     for (i&#x3D;1.0; i&lt;&#x3D;100; ++i)</span><br><span class="line">	    &#123;</span><br><span class="line">		    sum &#x3D; sum + 1&#x2F;i;</span><br><span class="line">	    &#125;</span><br><span class="line">	     printf(&quot;sum &#x3D; %f\n&quot;, sum);  </span><br><span class="line"></span><br><span class="line">	     return 0;</span><br><span class="line">    &#125;  </span><br><span class="line">### 多个for嵌套使用示例  </span><br><span class="line"></span><br><span class="line">    # include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">    int main(void)</span><br><span class="line">    &#123;</span><br><span class="line">	    int i, j;</span><br><span class="line"></span><br><span class="line">	    for (i&#x3D;0; i&lt;3; ++i)</span><br><span class="line">		    for (j&#x3D;2; j&lt;5; ++j)</span><br><span class="line">			    printf(&quot;哈哈!\n&quot;);</span><br><span class="line">		    printf(&quot;嘻嘻!\n&quot;);</span><br><span class="line"></span><br><span class="line">	    return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;*</span><br><span class="line">	    在Vc++6.0中的输出结果是:</span><br><span class="line">    ----------------------</span><br><span class="line">    哈哈!</span><br><span class="line">    哈哈!</span><br><span class="line">    哈哈!</span><br><span class="line">    哈哈!</span><br><span class="line">    哈哈!</span><br><span class="line">    哈哈!</span><br><span class="line">    哈哈!</span><br><span class="line">    哈哈!</span><br><span class="line">    哈哈!</span><br><span class="line">    嘻嘻!</span><br><span class="line">    Press any key to continue</span><br><span class="line">    ----------------------</span><br><span class="line">    *&#x2F;   </span><br><span class="line">### 逗号表  </span><br><span class="line">    # include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">    int main(void)</span><br><span class="line">    &#123;</span><br><span class="line">	    int i;</span><br><span class="line">	    int j &#x3D; 2;</span><br><span class="line"></span><br><span class="line">	    i &#x3D; (j++, ++j, j+2, j-3);</span><br><span class="line">	    printf(&quot;%d\n&quot;, i);</span><br><span class="line"></span><br><span class="line">	    return 0;</span><br><span class="line">    &#125;  </span><br><span class="line">### 前自增与后自增的比较  </span><br><span class="line"></span><br><span class="line">    # include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">    int main(void)</span><br><span class="line">    &#123;</span><br><span class="line">	    int i;</span><br><span class="line">	    int j;</span><br><span class="line">	    int k;</span><br><span class="line">	    int m;</span><br><span class="line"></span><br><span class="line">	    i &#x3D; j &#x3D; 3; &#x2F;&#x2F;等价于 i &#x3D; 3;  j &#x3D; 3;</span><br><span class="line">	    k &#x3D; i++;</span><br><span class="line">	    m &#x3D; ++j;</span><br><span class="line"></span><br><span class="line">	    printf(&quot;i &#x3D; %d, j &#x3D; %d, k &#x3D; %d, m &#x3D; %d\n&quot;, i, j, k, m);</span><br><span class="line"> </span><br><span class="line">	    return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;*</span><br><span class="line">	    在Vc++6.0中的输出结果是:</span><br><span class="line">    ----------------------</span><br><span class="line">    i &#x3D; 4, j &#x3D; 4, k &#x3D; 3, m &#x3D; 4</span><br><span class="line">    ----------------------</span><br><span class="line">	总结:</span><br><span class="line">		前自增整体表达式的值是i加1之后的值</span><br><span class="line">		后自增整体表达式的值是i加1之前的值</span><br><span class="line">    *&#x2F;  </span><br><span class="line">**如何看懂程序**  </span><br><span class="line">* 流程  </span><br><span class="line">* 语句  </span><br><span class="line">* 试数  </span><br><span class="line">--- </span><br><span class="line">### break的用法  </span><br><span class="line">截断循环</span><br><span class="line"></span><br><span class="line">    # include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">    int main(void)</span><br><span class="line">    &#123;</span><br><span class="line">	    int i, j;</span><br><span class="line"></span><br><span class="line">	    for (i&#x3D;0; i&lt;3; ++i)</span><br><span class="line">	    &#123;</span><br><span class="line">		    for (j&#x3D;1; j&lt;4; ++j)</span><br><span class="line">			    break;  &#x2F;&#x2F;break只能终止距离它最近的循环</span><br><span class="line">		    printf(&quot;同志们好!\n&quot;);</span><br><span class="line">	    &#125;</span><br><span class="line"></span><br><span class="line">	    return 0;</span><br><span class="line">    &#125;  </span><br><span class="line">### switch的用法  </span><br><span class="line"></span><br><span class="line">    # include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">    int main(void)</span><br><span class="line">    &#123;</span><br><span class="line">	    int val;</span><br><span class="line"></span><br><span class="line">	    printf(&quot;请输入您要进入的楼层: &quot;);</span><br><span class="line">	    scanf(&quot;%d&quot;, &amp;val);</span><br><span class="line"></span><br><span class="line">	    switch (val)</span><br><span class="line">	    &#123;</span><br><span class="line">	    case 1:</span><br><span class="line">		    printf(&quot;1层开!\n&quot;);</span><br><span class="line">		    break;</span><br><span class="line">	    case 2:</span><br><span class="line">		    printf(&quot;2层开!\n&quot;);</span><br><span class="line">		    &#x2F;&#x2F;break;</span><br><span class="line">	    case 3:</span><br><span class="line">		    printf(&quot;3层开!\n&quot;);</span><br><span class="line">		    break;</span><br><span class="line">        default:</span><br><span class="line">		    printf(&quot;没有盖到这一层!\n&quot;);</span><br><span class="line">		    break;</span><br><span class="line">	    &#125;</span><br><span class="line"></span><br><span class="line">	    return 0;</span><br><span class="line">    &#125;  </span><br><span class="line">### continue的用法  </span><br><span class="line">* 重复循环  </span><br><span class="line">&#96;&#96;&#96; </span><br><span class="line"># include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">int main(void)</span><br><span class="line">&#123;</span><br><span class="line">	int i;</span><br><span class="line">	char ch;</span><br><span class="line"></span><br><span class="line">	scanf(&quot;%d&quot;, &amp;i);</span><br><span class="line">	printf(&quot;i &#x3D; %d\n&quot;, i);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	while ( (ch&#x3D;getchar()) !&#x3D; &#39;\n&#39;)</span><br><span class="line">		continue;</span><br><span class="line">	int j;</span><br><span class="line">	scanf(&quot;%d&quot;, &amp;j);</span><br><span class="line">	printf(&quot;j &#x3D; %d\n&quot;, j);</span><br><span class="line"></span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="do…while用于人机交互"><a href="#do…while用于人机交互" class="headerlink" title="do…while用于人机交互"></a>do…while用于人机交互</h3><h1 id="include-lt-stdio-h-gt"><a href="#include-lt-stdio-h-gt" class="headerlink" title="include &lt;stdio.h&gt;"></a>include &lt;stdio.h&gt;</h1><h1 id="include-lt-math-h-gt"><a href="#include-lt-math-h-gt" class="headerlink" title="include &lt;math.h&gt;"></a>include &lt;math.h&gt;</h1><p>   int main(void)<br>   {</p>
 <pre><code>double a, b, c;    
 double delta;
 double x1, x2;    
@@ -566,18 +379,33 @@ do
     scanf(&quot; %c&quot;, &amp;ch);  //%c前面必须得加一个空格 原因略
 } while (&apos;y&apos;==ch || &apos;Y&apos;==ch);
 
-return 0;</code></pre><p>  }  </p>
+return 0;</code></pre><p>   }  </p>
 </li>
 </ul>
 <hr>
 <h3 id="continue与break"><a href="#continue与break" class="headerlink" title="continue与break"></a>continue与break</h3><p>用法类似，跳过后续，执行循环或跳出循环   </p>
 <hr>
 <h3 id="数组-不重要"><a href="#数组-不重要" class="headerlink" title="数组(不重要)"></a>数组(不重要)</h3><ul>
-<li>原因： 多变量的定义；模拟现实世界  </li>
-<li>运用：  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"> # include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">int main(void)</span><br><span class="line">&#123;</span><br><span class="line">	int a[5];</span><br><span class="line">	int i;</span><br><span class="line">	</span><br><span class="line">	scanf(&quot;%d&quot;, &amp;a[0]);</span><br><span class="line">	printf(&quot;a[0] &#x3D; %d\n&quot;, a[0]);</span><br><span class="line"></span><br><span class="line">	scanf(&quot;%d&quot;, &amp;a[3]);</span><br><span class="line">	printf(&quot;a[3] &#x3D; %d\n&quot;, a[3]);</span><br><span class="line"></span><br><span class="line">	for (i&#x3D;0; i&lt;5; ++i)</span><br><span class="line">		printf(&quot;%d &quot;, a[i]);</span><br><span class="line"></span><br><span class="line">	return 0;</span><br><span class="line">&#125;  </span><br><span class="line">&#96;&#96;&#96;  </span><br><span class="line">上面是一维数组  </span><br><span class="line">下面是二维数组</span><br></pre></td></tr></table></figure>
-<h1 id="include-lt-stdio-h-gt-2"><a href="#include-lt-stdio-h-gt-2" class="headerlink" title="include &lt;stdio.h&gt;"></a>include &lt;stdio.h&gt;</h1></li>
+<li><p>原因： 多变量的定义；模拟现实世界  </p>
+</li>
+<li><p>运用：  </p>
+<pre><code>
+# include &lt;stdio.h&gt;
+</code></pre></li>
 </ul>
-<p>int main(void)<br>{<br>    int a[3][4] = {<br>        {1, 2, 3, 4},<br>        {5, 6, 7, 8},<br>        {9, 10,11,12}<br>    };<br>    int i, j;</p>
+<p>int main(void)<br>{<br>    int a[5];<br>    int i;</p>
+<pre><code>scanf(&quot;%d&quot;, &amp;a[0]);
+printf(&quot;a[0] = %d\n&quot;, a[0]);
+
+scanf(&quot;%d&quot;, &amp;a[3]);
+printf(&quot;a[3] = %d\n&quot;, a[3]);
+
+for (i=0; i&lt;5; ++i)
+    printf(&quot;%d &quot;, a[i]);
+
+return 0;</code></pre><p>}  </p>
+<pre><code>上面是一维数组  
+下面是二维数组  </code></pre><h1 id="include-lt-stdio-h-gt-1"><a href="#include-lt-stdio-h-gt-1" class="headerlink" title="include &lt;stdio.h&gt;"></a>include &lt;stdio.h&gt;</h1><p>int main(void)<br>{<br>    int a[3][4] = {<br>        {1, 2, 3, 4},<br>        {5, 6, 7, 8},<br>        {9, 10,11,12}<br>    };<br>    int i, j;</p>
 <pre><code>//输出数组内容
 for (i=0; i&lt;3; ++i)
 {        
@@ -588,9 +416,9 @@ for (i=0; i&lt;3; ++i)
 
 
 return 0;</code></pre><p>}  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">**注意标点**</span><br></pre></td></tr></table></figure>
-<p>int a[5]； //表示a数组有五个元素，之后不能出现a[5]<br>a[0], a[1],a[2], a[3], a[4];  </p>
-<pre><code>赋值的时候，要么在int那里全部赋值或部分赋值，不能在后面全体赋值  
+<pre><code>**注意标点**  </code></pre><p>int a[5]； //表示a数组有五个元素，之后不能出现a[5]<br>a[0], a[1],a[2], a[3], a[4];  </p>
+<pre><code>
+赋值的时候，要么在int那里全部赋值或部分赋值，不能在后面全体赋值  
 a是数组名，也是a[0]的地址，不代表a数组的每个元素。
 
 *END*</code></pre>
@@ -741,7 +569,7 @@ a是数组名，也是a[0]的地址，不代表a数组的每个元素。
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第一课"><span class="toc-number">2.</span> <span class="toc-text">第一课</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#学习C语言所需要的基础知识"><span class="toc-number">2.1.</span> <span class="toc-text">学习C语言所需要的基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#32个关键字"><span class="toc-number">2.1.1.</span> <span class="toc-text">32个关键字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#正课"><span class="toc-number">2.1.2.</span> <span class="toc-text">正课</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#进制（逢r进1）"><span class="toc-number">2.1.3.</span> <span class="toc-text">进制（逢r进1）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2进制"><span class="toc-number">2.1.3.1.</span> <span class="toc-text">2进制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8进制"><span class="toc-number">2.1.3.2.</span> <span class="toc-text">8进制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#16进制"><span class="toc-number">2.1.3.3.</span> <span class="toc-text">16进制</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#变量"><span class="toc-number">2.1.4.</span> <span class="toc-text">变量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#变量初始化"><span class="toc-number">2.1.4.1.</span> <span class="toc-text">变量初始化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#输出符"><span class="toc-number">2.1.4.2.</span> <span class="toc-text">输出符</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#进制转化"><span class="toc-number">2.1.5.</span> <span class="toc-text">进制转化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#printf的用法"><span class="toc-number">2.1.6.</span> <span class="toc-text">printf的用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码规范"><span class="toc-number">2.1.7.</span> <span class="toc-text">代码规范</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#char的用法"><span class="toc-number">2.1.8.</span> <span class="toc-text">char的用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ASCII码"><span class="toc-number">2.1.9.</span> <span class="toc-text">ASCII码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#scanf的用法"><span class="toc-number">2.1.10.</span> <span class="toc-text">scanf的用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#逻辑运算符"><span class="toc-number">2.1.11.</span> <span class="toc-text">逻辑运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#if的用法"><span class="toc-number">2.1.12.</span> <span class="toc-text">if的用法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#两个程序"><span class="toc-number">2.1.12.1.</span> <span class="toc-text">两个程序</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#include-lt-stdio-h-gt"><span class="toc-number">3.</span> <span class="toc-text">include &lt;stdio.h&gt;</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#if常见错误"><span class="toc-number">3.0.0.0.1.</span> <span class="toc-text">if常见错误</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#for循环"><span class="toc-number">3.0.1.</span> <span class="toc-text">for循环</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#for和if的嵌套使用"><span class="toc-number">3.0.1.1.</span> <span class="toc-text">for和if的嵌套使用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#浮点数存储问题"><span class="toc-number">3.0.2.</span> <span class="toc-text">浮点数存储问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多个for嵌套使用示例"><span class="toc-number">3.0.3.</span> <span class="toc-text">多个for嵌套使用示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#逗号表"><span class="toc-number">3.0.4.</span> <span class="toc-text">逗号表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#前自增与后自增的比较"><span class="toc-number">3.0.5.</span> <span class="toc-text">前自增与后自增的比较</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#break的用法"><span class="toc-number">3.0.6.</span> <span class="toc-text">break的用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#switch的用法"><span class="toc-number">3.0.7.</span> <span class="toc-text">switch的用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#continue的用法"><span class="toc-number">3.0.8.</span> <span class="toc-text">continue的用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#do…while用于人机交互"><span class="toc-number">3.0.9.</span> <span class="toc-text">do…while用于人机交互</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#include-lt-stdio-h-gt-1"><span class="toc-number">4.</span> <span class="toc-text">include &lt;stdio.h&gt;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#include-lt-math-h-gt"><span class="toc-number">5.</span> <span class="toc-text">include &lt;math.h&gt;</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#continue与break"><span class="toc-number">5.0.1.</span> <span class="toc-text">continue与break</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数组-不重要"><span class="toc-number">5.0.2.</span> <span class="toc-text">数组(不重要)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#include-lt-stdio-h-gt-2"><span class="toc-number">6.</span> <span class="toc-text">include &lt;stdio.h&gt;</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第一课"><span class="toc-number">2.</span> <span class="toc-text">第一课</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#学习C语言所需要的基础知识"><span class="toc-number">2.1.</span> <span class="toc-text">学习C语言所需要的基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#32个关键字"><span class="toc-number">2.1.1.</span> <span class="toc-text">32个关键字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#正课"><span class="toc-number">2.1.2.</span> <span class="toc-text">正课</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#进制（逢r进1）"><span class="toc-number">2.1.3.</span> <span class="toc-text">进制（逢r进1）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2进制"><span class="toc-number">2.1.3.1.</span> <span class="toc-text">2进制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8进制"><span class="toc-number">2.1.3.2.</span> <span class="toc-text">8进制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#16进制"><span class="toc-number">2.1.3.3.</span> <span class="toc-text">16进制</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#变量"><span class="toc-number">2.1.4.</span> <span class="toc-text">变量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#变量初始化"><span class="toc-number">2.1.4.1.</span> <span class="toc-text">变量初始化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#输出符"><span class="toc-number">2.1.4.2.</span> <span class="toc-text">输出符</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#进制转化"><span class="toc-number">2.1.5.</span> <span class="toc-text">进制转化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#printf的用法"><span class="toc-number">2.1.6.</span> <span class="toc-text">printf的用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码规范"><span class="toc-number">2.1.7.</span> <span class="toc-text">代码规范</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#char的用法"><span class="toc-number">2.1.8.</span> <span class="toc-text">char的用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ASCII码"><span class="toc-number">2.1.9.</span> <span class="toc-text">ASCII码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#scanf的用法"><span class="toc-number">2.1.10.</span> <span class="toc-text">scanf的用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#逻辑运算符"><span class="toc-number">2.1.11.</span> <span class="toc-text">逻辑运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#if的用法"><span class="toc-number">2.1.12.</span> <span class="toc-text">if的用法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#两个程序"><span class="toc-number">2.1.12.1.</span> <span class="toc-text">两个程序</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#do…while用于人机交互"><span class="toc-number">2.1.13.</span> <span class="toc-text">do…while用于人机交互</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#include-lt-stdio-h-gt"><span class="toc-number">3.</span> <span class="toc-text">include &lt;stdio.h&gt;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#include-lt-math-h-gt"><span class="toc-number">4.</span> <span class="toc-text">include &lt;math.h&gt;</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#continue与break"><span class="toc-number">4.0.1.</span> <span class="toc-text">continue与break</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数组-不重要"><span class="toc-number">4.0.2.</span> <span class="toc-text">数组(不重要)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#include-lt-stdio-h-gt-1"><span class="toc-number">5.</span> <span class="toc-text">include &lt;stdio.h&gt;</span></a></li></ol>
                     </div>
                 </span>
             </div>
