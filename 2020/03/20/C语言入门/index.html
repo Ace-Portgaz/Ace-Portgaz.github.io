@@ -16,7 +16,7 @@
 <meta property="og:description" content="前言我是一个刚刚接触C语言的新手，现在仅以博客来记录我每天学习的情况，也可以说是笔记，后来者也可以跟着一起学习。（多思考，多敲代码）">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-03-20T00:55:52.682Z">
-<meta property="article:modified_time" content="2020-03-27T14:30:00.158Z">
+<meta property="article:modified_time" content="2020-04-04T12:05:03.878Z">
 <meta property="article:author" content="Ace-Portgaz">
 <meta property="article:tag" content="C语言入门">
 <meta name="twitter:card" content="summary">
@@ -632,8 +632,170 @@ int main(void)
 }  </code></pre><p><strong>注意标点</strong>  </p>
 <pre><code>int a[5]； //表示a数组有五个元素，之后不能出现a[5]  
 a[0], a[1],a[2], a[3], a[4];  </code></pre><p>赋值的时候，要么在int那里全部赋值或部分赋值，不能在后面全体赋值<br>a是数组名，也是a[0]的地址，不代表a数组的每个元素。  </p>
-<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p><strong>重点！</strong><br>C语言的函数和其他语言的函数不一样，学习C语言的函数能更好地理解面向过程与面向对象。<br>函数的知识是连在一起的只要弄懂了一个就能几乎都弄懂。  </p>
-<p><em>END</em></p>
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p><strong>重点！</strong><br>C语言的函数和其他语言的函数不一样，学习C语言的函数能更好地理解面向过程与面向对象。<br>函数的知识是连在一起的只要弄懂了一个就能几乎都弄懂。<br>举例：<br>    # include &lt;stdio.h&gt;</p>
+<pre><code>//max是函数的名字, i和j是形式参数，简称形参 void表示函数没有返回值
+void max(int i, int j)
+{
+    if (i &gt; j)
+        printf(&quot;%d\n&quot;, i);
+    else
+        printf(&quot;%d\n&quot;, j);
+}
+
+int main(void)
+{
+    int a, b, c, d, e, f;
+
+    a = 1, b = 2; c = 3, d = 9, e = -5, f = 100;
+    max(a, b);
+    max(c, d);
+    max(e, f);
+/*
+    if (a &gt; b)
+        printf(&quot;%d\n&quot;, a);
+    else
+        printf(&quot;%d\n&quot;, b);
+
+    if (c &gt; d)
+        printf(&quot;%d\n&quot;, c);
+    else
+        printf(&quot;%d\n&quot;, d);
+
+    if (e &gt; f)
+        printf(&quot;%d\n&quot;, e);
+    else
+        printf(&quot;%d\n&quot;, f);
+*/
+    return 0;
+}  </code></pre><h4 id="为什么需要函数"><a href="#为什么需要函数" class="headerlink" title="为什么需要函数"></a>为什么需要函数</h4><ul>
+<li>解决重复性问题  </li>
+<li>区块化  <h4 id="什么是函数"><a href="#什么是函数" class="headerlink" title="什么是函数"></a>什么是函数</h4>完成特定功能的代码  <h4 id="如何定义一个函数"><a href="#如何定义一个函数" class="headerlink" title="如何定义一个函数"></a>如何定义一个函数</h4></li>
+<li>int  </li>
+<li>void  </li>
+</ul>
+<h4 id="return和break的区别"><a href="#return和break的区别" class="headerlink" title="return和break的区别"></a>return和break的区别</h4><pre><code># include &lt;stdio.h&gt;
+
+void f(void)
+{
+    int i;
+
+    for (i=0; i&lt;5; ++i)
+    {
+        printf(&quot;大家辛苦了!\n&quot;);
+        return;
+    }
+    printf(&quot;同志们好!\n&quot;);
+}
+
+int main(void)
+{
+    f();
+
+    return 0;
+}  </code></pre><p>return终止函数，break终止循环或者switch  </p>
+<h4 id="函数类型"><a href="#函数类型" class="headerlink" title="函数类型"></a>函数类型</h4><p>三种<br>有参函数和无参函数（void）<br>有返回值函数和无返回值函数<br>库函数（系统函数）和自定义函数  </p>
+<pre><code># include &lt;stdio.h&gt;
+
+int f()
+{
+    return 10.5;  //因为函数的返回值类型是int  所以最终f返回的是10而不是10.5
+}
+
+int main(void)
+{
+    int i = 99;
+    double x = 6.6;
+
+    x = f();
+    printf(&quot;%lf\n&quot;, x);
+
+    return 0;
+}  </code></pre><h4 id="函数举例"><a href="#函数举例" class="headerlink" title="函数举例"></a>函数举例</h4><p>2-1<br>    # include &lt;stdio.h&gt;</p>
+<pre><code>//max是函数的名字, i和j是形式参数，简称形参 void表示函数没有返回值
+void max1(int i, int j)
+{
+    if (i &gt; j)
+        printf(&quot;%d\n&quot;, i);
+    else
+        printf(&quot;%d\n&quot;, j);
+}
+
+int max2(int i, int j)
+{
+    if (i &gt; j)
+        return i;
+    else
+        return j;
+}
+
+int main(void)
+{
+    int a, b, c, d, e, f;
+    a = 1, b = 2; c = 3, d = 9, e = -5, f = 100;
+
+    printf(&quot;%d\n&quot;, max2(a, b));
+    printf(&quot;%d\n&quot;, max2(c, d));
+    printf(&quot;%d\n&quot;, max2(e, f));
+
+/*
+    max1(a, b);
+    max1(c, d);
+    max1(e, f);
+*/
+    return 0;
+}  </code></pre><p>2-2</p>
+<pre><code># include &lt;stdio.h&gt;
+
+int f(void)  //括号中的void表示该函数不能接受数据  int表示函数返回值是int类型的数据
+{
+    return 10; //向主调函数返回10
+}
+
+void g(void)  //8行  函数名前面的void表示该函数没有返回值
+{
+//    return 10; //error 与8行行首的void相矛盾
+}
+
+int main(void)
+{
+    int j = 88;
+
+    j = f();
+    printf(&quot;%d\n&quot;, j);
+
+//    j = g(); //error 因为g函数没有返回值
+
+    return 0;
+}  </code></pre><p>3  </p>
+<pre><code># include &lt;stdio.h&gt;
+
+bool IsPrime(int val)
+{
+    int i;
+
+    for (i=2; i&lt;val; ++i)
+    {
+        if (val%i == 0)
+            break;
+    }
+    if (i == val)
+        return true;
+    else
+        return false;
+}
+
+int main(void)
+{
+    int m;
+
+    scanf(&quot;%d&quot;, &amp;m);
+    if ( IsPrime(m) )
+        printf(&quot;Yes!\n&quot;);
+    else
+        printf(&quot;No!\n&quot;);
+
+    return 0;
+}</code></pre><p><em>END</em></p>
 
       
 
@@ -782,7 +944,7 @@ a[0], a[1],a[2], a[3], a[4];  </code></pre><p>赋值的时候，要么在int那�
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第一课"><span class="toc-number">2.</span> <span class="toc-text">第一课</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#学习C语言所需要的基础知识"><span class="toc-number">2.1.</span> <span class="toc-text">学习C语言所需要的基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#32个关键字"><span class="toc-number">2.1.1.</span> <span class="toc-text">32个关键字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#正课"><span class="toc-number">2.1.2.</span> <span class="toc-text">正课</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#进制（逢r进1）"><span class="toc-number">2.1.3.</span> <span class="toc-text">进制（逢r进1）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2进制"><span class="toc-number">2.1.3.1.</span> <span class="toc-text">2进制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8进制"><span class="toc-number">2.1.3.2.</span> <span class="toc-text">8进制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#16进制"><span class="toc-number">2.1.3.3.</span> <span class="toc-text">16进制</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#变量"><span class="toc-number">2.1.4.</span> <span class="toc-text">变量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#变量初始化"><span class="toc-number">2.1.4.1.</span> <span class="toc-text">变量初始化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#输出符"><span class="toc-number">2.1.4.2.</span> <span class="toc-text">输出符</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#进制转化"><span class="toc-number">2.1.5.</span> <span class="toc-text">进制转化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#printf的用法"><span class="toc-number">2.1.6.</span> <span class="toc-text">printf的用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码规范"><span class="toc-number">2.1.7.</span> <span class="toc-text">代码规范</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#char的用法"><span class="toc-number">2.1.8.</span> <span class="toc-text">char的用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ASCII码"><span class="toc-number">2.1.9.</span> <span class="toc-text">ASCII码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#scanf的用法"><span class="toc-number">2.1.10.</span> <span class="toc-text">scanf的用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#逻辑运算符"><span class="toc-number">2.1.11.</span> <span class="toc-text">逻辑运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#if的用法"><span class="toc-number">2.1.12.</span> <span class="toc-text">if的用法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#两个程序"><span class="toc-number">2.1.12.1.</span> <span class="toc-text">两个程序</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#if常见错误"><span class="toc-number">2.1.12.1.1.</span> <span class="toc-text">if常见错误</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#for循环"><span class="toc-number">2.1.13.</span> <span class="toc-text">for循环</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#for和if的嵌套使用"><span class="toc-number">2.1.13.1.</span> <span class="toc-text">for和if的嵌套使用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#浮点数存储问题"><span class="toc-number">2.1.14.</span> <span class="toc-text">浮点数存储问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多个for嵌套使用示例"><span class="toc-number">2.1.15.</span> <span class="toc-text">多个for嵌套使用示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#逗号表"><span class="toc-number">2.1.16.</span> <span class="toc-text">逗号表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#前自增与后自增的比较"><span class="toc-number">2.1.17.</span> <span class="toc-text">前自增与后自增的比较</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#break的用法"><span class="toc-number">2.1.18.</span> <span class="toc-text">break的用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#switch的用法"><span class="toc-number">2.1.19.</span> <span class="toc-text">switch的用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#continue的用法"><span class="toc-number">2.1.20.</span> <span class="toc-text">continue的用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#do…while用于人机交互"><span class="toc-number">2.1.21.</span> <span class="toc-text">do…while用于人机交互</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#continue与break"><span class="toc-number">2.1.22.</span> <span class="toc-text">continue与break</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数组-不重要"><span class="toc-number">2.1.23.</span> <span class="toc-text">数组(不重要)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#include-lt-stdio-h-gt"><span class="toc-number">3.</span> <span class="toc-text">include &lt;stdio.h&gt;</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#函数"><span class="toc-number">3.0.1.</span> <span class="toc-text">函数</span></a></li></ol></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第一课"><span class="toc-number">2.</span> <span class="toc-text">第一课</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#学习C语言所需要的基础知识"><span class="toc-number">2.1.</span> <span class="toc-text">学习C语言所需要的基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#32个关键字"><span class="toc-number">2.1.1.</span> <span class="toc-text">32个关键字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#正课"><span class="toc-number">2.1.2.</span> <span class="toc-text">正课</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#进制（逢r进1）"><span class="toc-number">2.1.3.</span> <span class="toc-text">进制（逢r进1）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2进制"><span class="toc-number">2.1.3.1.</span> <span class="toc-text">2进制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8进制"><span class="toc-number">2.1.3.2.</span> <span class="toc-text">8进制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#16进制"><span class="toc-number">2.1.3.3.</span> <span class="toc-text">16进制</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#变量"><span class="toc-number">2.1.4.</span> <span class="toc-text">变量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#变量初始化"><span class="toc-number">2.1.4.1.</span> <span class="toc-text">变量初始化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#输出符"><span class="toc-number">2.1.4.2.</span> <span class="toc-text">输出符</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#进制转化"><span class="toc-number">2.1.5.</span> <span class="toc-text">进制转化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#printf的用法"><span class="toc-number">2.1.6.</span> <span class="toc-text">printf的用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码规范"><span class="toc-number">2.1.7.</span> <span class="toc-text">代码规范</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#char的用法"><span class="toc-number">2.1.8.</span> <span class="toc-text">char的用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ASCII码"><span class="toc-number">2.1.9.</span> <span class="toc-text">ASCII码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#scanf的用法"><span class="toc-number">2.1.10.</span> <span class="toc-text">scanf的用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#逻辑运算符"><span class="toc-number">2.1.11.</span> <span class="toc-text">逻辑运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#if的用法"><span class="toc-number">2.1.12.</span> <span class="toc-text">if的用法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#两个程序"><span class="toc-number">2.1.12.1.</span> <span class="toc-text">两个程序</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#if常见错误"><span class="toc-number">2.1.12.1.1.</span> <span class="toc-text">if常见错误</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#for循环"><span class="toc-number">2.1.13.</span> <span class="toc-text">for循环</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#for和if的嵌套使用"><span class="toc-number">2.1.13.1.</span> <span class="toc-text">for和if的嵌套使用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#浮点数存储问题"><span class="toc-number">2.1.14.</span> <span class="toc-text">浮点数存储问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多个for嵌套使用示例"><span class="toc-number">2.1.15.</span> <span class="toc-text">多个for嵌套使用示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#逗号表"><span class="toc-number">2.1.16.</span> <span class="toc-text">逗号表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#前自增与后自增的比较"><span class="toc-number">2.1.17.</span> <span class="toc-text">前自增与后自增的比较</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#break的用法"><span class="toc-number">2.1.18.</span> <span class="toc-text">break的用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#switch的用法"><span class="toc-number">2.1.19.</span> <span class="toc-text">switch的用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#continue的用法"><span class="toc-number">2.1.20.</span> <span class="toc-text">continue的用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#do…while用于人机交互"><span class="toc-number">2.1.21.</span> <span class="toc-text">do…while用于人机交互</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#continue与break"><span class="toc-number">2.1.22.</span> <span class="toc-text">continue与break</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数组-不重要"><span class="toc-number">2.1.23.</span> <span class="toc-text">数组(不重要)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#include-lt-stdio-h-gt"><span class="toc-number">3.</span> <span class="toc-text">include &lt;stdio.h&gt;</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#函数"><span class="toc-number">3.0.1.</span> <span class="toc-text">函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#为什么需要函数"><span class="toc-number">3.0.1.1.</span> <span class="toc-text">为什么需要函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#什么是函数"><span class="toc-number">3.0.1.2.</span> <span class="toc-text">什么是函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#如何定义一个函数"><span class="toc-number">3.0.1.3.</span> <span class="toc-text">如何定义一个函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#return和break的区别"><span class="toc-number">3.0.1.4.</span> <span class="toc-text">return和break的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#函数类型"><span class="toc-number">3.0.1.5.</span> <span class="toc-text">函数类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#函数举例"><span class="toc-number">3.0.1.6.</span> <span class="toc-text">函数举例</span></a></li></ol></li></ol></li></ol></li></ol>
                     </div>
                 </span>
             </div>
