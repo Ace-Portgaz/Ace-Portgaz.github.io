@@ -16,7 +16,7 @@
 <meta property="og:description" content="前言我是一个刚刚接触C语言的新手，现在仅以博客来记录我每天学习的情况，也可以说是笔记，后来者也可以跟着一起学习。（多思考，多敲代码）">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-03-20T00:55:52.682Z">
-<meta property="article:modified_time" content="2020-04-29T13:33:43.289Z">
+<meta property="article:modified_time" content="2020-05-11T15:30:57.936Z">
 <meta property="article:author" content="Ace-Portgaz">
 <meta property="article:tag" content="C语言入门">
 <meta name="twitter:card" content="summary">
@@ -1450,6 +1450,543 @@ int *是类型，表示存储整型变量的地址
         return 0;
     }  
 
+### malloc函数的使用（续）  
+
+    # include &lt;stdio.h&gt;
+    # include &lt;malloc.h&gt;
+
+    void f(int * q)
+    {
+        //*p = 200; //error
+        //q = 200;
+        //**q = 200;  //error
+        *q = 200;
+        //free(q);  //把q所指向的内存释放掉  本语句必须的注释掉，否则会导致第20行的代码出错
+    }
+
+    int main(void)
+    {
+        int * p = (int *)malloc(sizeof(int)); //sizeof(int)返回值是int所占的字节数
+        *p = 10;
+
+        printf(&quot;%d\n&quot;, *p);  //10
+        f(p);  //p是int *类型
+        printf(&quot;%d\n&quot;, *p);  //200    第20行
+
+        return 0;
+    }  
+
+#### 动态一维数组示例  
+
+    # include &lt;stdio.h&gt;
+    # include &lt;malloc.h&gt;
+
+    int main(void)
+    {
+        int a[5]; //如果int占4个字节的话，则本数组总共包含有20个字节，每四个字节被当做了一个int变量来使用
+        int len;
+        int * pArr;
+        int i;
+
+        //动态的构造一维数组
+        printf(&quot;请输入你要存放的元素的个数: &quot;);
+        scanf(&quot;%d&quot;, &amp;len);
+        pArr = (int *)malloc(4 * len);  //第12行  本行动态的构造了一个一维数组, 该一维数组的产度是len, 该数组的数组名是pArr, 该数组的每个元素是int类型  类似于 int pArr[len];
+
+        //对一维数组进行操作，  如：对动态一维数组进行赋值
+        for (i=0; i&lt;len; ++i)
+            scanf(&quot;%d&quot;, &amp;pArr[i]);
+
+        //对位一维数组进行输出
+        printf(&quot;一维数组的内容是:\n&quot;);
+        for (i=0; i&lt;len; ++i)
+            printf(&quot;%d\n&quot;, pArr[i]);
+
+        free(pArr); //释放掉动态分配的数组
+
+
+        return 0;
+    }  
+
+### 多级指针  
+
+    # include &lt;stdio.h&gt;
+
+    int main(void)
+    {
+        int i = 10;
+        int * p = &amp;i;  //p只能存放int类型变量的地址
+        int ** q = &amp;p;  //q是int **类型， 所谓int **类型就是指q只能存放int *类型变量的地址，     
+        int *** r = &amp;q;  //r是int ***类型, 所谓int ***类型就是指r只能存放int ** 类型变量的地址, 
+
+        //r = &amp;p;  //error 因为r是int *** 类型，r只能存放int **类型变量的地址
+        printf(&quot;i = %d\n&quot;, ***r); //输出结果是10  只有 ***r才表示的是i, *r或 **r或 ****r代表的都不是i
+
+        return 0;
+    }  
+
+### 跨函数使用内存  
+* 静态变量不能跨函数使用  
+* 动态内存可以跨函数使用  
+
+示例：  
+静态变量不能跨函数使用
+
+    # include &lt;stdio.h&gt;
+
+    void f(int ** q) //q是个指针变量，无论q是什么类型的指针变量，都只占4个字节
+    {
+        int i = 5;
+        //*q等价于p  q和**q都不等价于p
+        //*q = i; //error 因为*q = i; 等价于 p = i; 这样写是错误的
+        *q = &amp;i;  // p = &amp;i;
+    }
+
+    int main(void)
+    {
+        int *p;  //13行
+
+        f(&amp;p);
+        printf(&quot;%d\n&quot;, *p);  //16行  本语句语法没有问题，但逻辑上有问题，i的地址被释放，按理说，*p已经不能读取！
+
+        return 0;
+    }  
+
+动态内存  
+
+    # include &lt;stdio.h&gt;
+    # include &lt;malloc.h&gt;
+
+    void f(int ** q)
+    {
+        *q = (int *)malloc(sizeof(int)); //sizeof(数据类型) 返回值是该数据类型所占的字节数
+                //等价于 p = (int *)malloc(sizeof(int));
+        //q = 5; //error
+        //*q = 5; //p = 5;
+        **q = 5; //*p = 5;
+    }
+
+    int main(void)
+    {
+        int * p;
+
+        f(&amp;p);
+        printf(&quot;%d\n&quot;, *p);
+
+        return 0;
+    }  
+
+### 结构体  
+为什么需要结构体？  
+为了表达一些基本的事物，而普通基本类型无法满足  
+例子：  
+
+    # include &lt;stdio.h&gt;
+
+    struct Student
+    {
+        int age;
+        float score;
+        char sex;
+    };
+
+    int main(void)
+    {
+        struct Student st = {80, 66.6, &apos;F&apos;};    
+    /*    int age;
+        float score;
+        char sex;
+        int age2;
+        float score2;
+        char sex2;
+    */
+        return 0;
+    }  
+
+#### 定义结构体  
+三种方式（只用掌握第一种就行，第一种最规范）  
+
+    # include &lt;stdio.h&gt;
+
+    //第一种方式
+    struct Student
+    {
+        int age;
+        float score;
+        char sex;
+    };
+
+    //第二种方式
+    struct Student2
+    {
+        int age;
+        float score;
+        char sex;
+    } st2;
+
+    //第三种方式
+    struct 
+    {
+        int age;
+        float score;
+        char sex;
+    } st3;
+
+    int main(void)
+    {
+        struct Student st = {80, 66.6, &apos;F&apos;};    
+
+        return 0;
+    }  
+
+#### 怎样使用结构体变量  
+使用方法类似于数组，定义的同时可以整体赋初值，如果是定义完之后，只能单个赋值  
+
+
+#### 如何取出结构体变量中的每一个成员  
+
+    # include &lt;stdio.h&gt;
+
+    //第一种方式
+    struct Student
+    {
+        int age;
+        float score;
+        char sex;
+    };
+
+    int main(void)
+    {
+        struct Student st = {80, 66.6F, &apos;F&apos;}; //初始化  定义的同时赋初值
+        struct Student * pst = &amp;st;  //&amp;st不能改成st
+
+        pst-&gt;age = 88;//第二种方式
+        st.score = 66.6f; //第一种方式  66.6在C语言中默认是double类型，如果希望一个实数是float类型，则必须在末尾加f或F, 因此66.6是double, 66.6f或66.6F是float
+        printf(&quot;%d %f\n&quot;, st.age, pst-&gt;score);    
+
+        return 0;
+    }  
+
+结构体应用举例：  
+
+    # include &lt;stdio.h&gt;
+
+    struct Student
+    {
+        int age;
+        char sex;
+        char name[100];
+    }; //分号不能省
+
+    int main(void)
+    {
+        struct Student st = {20, &apos;F&apos;, &quot;小娟&quot;};
+        struct Student * pst = &amp;st;
+
+        printf(&quot;%d %c %s\n&quot;, st.age, st.sex, st.name);
+        printf(&quot;%d %c %s\n&quot;, pst-&gt;age, pst-&gt;sex, pst-&gt;name);  //pst-&gt;age 转化成 (*pst).age 等价于 st.age
+
+        return 0;
+    }  
+
+### 结构体变量和结构体指针变量作为函数参数传递的问题  
+
+    /*
+        2009年11月24日9:17:43
+        通过函数完成对结构体变量的输入和输出
+    */
+
+
+    # include &lt;stdio.h&gt;
+    # include &lt;string.h&gt;
+
+    struct Student
+    {
+        int age;
+        char sex;
+        char name[100];
+    }; //分号不能省
+
+    void InputStudent(struct Student *);
+    void OutputStudent(struct Student ss);
+    int main(void)
+    {
+        struct Student st;  //15行
+
+        InputStudent(&amp;st); //对结构体变量输入  必须发送st的地址
+    //    printf(&quot;%d %c %s\n&quot;, st.age, st.sex, st.name);
+        OutputStudent(st); //对结构体变量输出  可以发送st的地址也可以直接发送st的内容
+
+        return 0;
+    }
+
+    void OutputStudent(struct Student ss)
+    {
+        printf(&quot;%d %c %s\n&quot;, ss.age, ss.sex, ss.name);
+    }
+
+    void InputStudent(struct Student * pstu) //pstu只占4个字节
+    {
+        (*pstu).age = 10;
+        strcpy(pstu-&gt;name, &quot;张三&quot;);
+        pstu-&gt;sex = &apos;F&apos;;    
+    }
+
+    /*
+    //本函数无法修改主函数15行st的值 所以本函数是错误的
+    void InputStudent(struct Student stu)
+    {
+        stu.age = 10;
+        strcpy(stu.name, &quot;张三&quot;);  //不能写成 stu.name = &quot;张三&quot;;
+        stu.sex = &apos;F&apos;;
+    }
+    */  
+
+### 发送地址还是发送内容  
+地址传递数据优越性的体现  
+
+    /*
+        2009年11月24日9:17:43
+        示例:
+            发送地址还是发送内容
+        目的:
+            指针的优点之一:
+                快速的传递数据，
+                耗用内存小
+                执行速度快
+    */
+
+
+    # include &lt;stdio.h&gt;
+    # include &lt;string.h&gt;
+
+    struct Student
+    {
+        int age;
+        char sex;
+        char name[100];
+    }; //分号不能省
+
+    void InputStudent(struct Student *);
+    void OutputStudent(struct Student *);
+    int main(void)
+    {
+        struct Student st ;  //15行
+        //printf(&quot;%d\n&quot;, sizeof(st));
+
+        InputStudent(&amp;st); //对结构体变量输入  必须发送st的地址
+        OutputStudent(&amp;st); //对结构体变量输出  可以发送st的地址也可以直接发送st的内容 但为了减少内存的耗费，也为了提高执行速度，推荐发送地址
+
+        return 0;
+    }
+
+    void OutputStudent(struct Student *pst)
+    {
+        printf(&quot;%d %c %s\n&quot;, pst-&gt;age, pst-&gt;sex, pst-&gt;name);
+    }
+
+    void InputStudent(struct Student * pstu) //pstu只占4个字节
+    {
+        (*pstu).age = 10;
+        strcpy(pstu-&gt;name, &quot;张三&quot;);
+        pstu-&gt;sex = &apos;F&apos;;    
+    }
+
+    /*
+    //本函数无法修改主函数15行st的值 所以本函数是错误的
+    void InputStudent(struct Student stu)
+    {
+        stu.age = 10;
+        strcpy(stu.name, &quot;张三&quot;);  //不能写成 stu.name = &quot;张三&quot;;
+        stu.sex = &apos;F&apos;;
+    }
+    */  
+
+### 冒泡排序（应该将该程序背牢） 
+
+    # include &lt;stdio.h&gt;
+
+    //冒泡排序
+    void sort(int * a, int len)
+    {
+        int i, j, t;
+
+        for (i=0; i&lt;len-1; ++i)
+        {
+            for (j=0; j&lt;len-1-i; ++j)
+            {
+                if (a[j] &gt; a[j+1])  // &gt;表示升序 &lt;表示降序
+                {
+                    t = a[j];
+                    a[j] = a[j+1];
+                    a[j+1] = t; 
+                }
+            }
+        }
+    }
+
+    int main(void)
+    {
+        int a[6] = {10, 2, 8, -8, 11, 0};
+        int i = 0;
+
+        sort(a, 6);
+
+        for (i=0; i&lt;6; ++i)
+        {
+            printf(&quot;%d &quot;, a[i]);
+        }
+        printf(&quot;\n&quot;);
+
+        return 0;
+    }  
+
+#### 学生管理系统  
+
+    # include &lt;stdio.h&gt;
+    # include &lt;malloc.h&gt;
+
+    struct Student
+    {
+        int age;
+        float score;
+        char name[100];
+    };
+
+    int main(void)
+    {
+        int len;
+        struct Student * pArr;
+        int i, j;
+        struct Student t;
+
+
+        //动态的构造一维数组
+        printf(&quot;请输入学生的个数:\n&quot;);
+        printf(&quot;len = &quot;);
+        scanf(&quot;%d&quot;, &amp;len);
+        pArr = (struct Student *)malloc(len * sizeof(struct Student));
+
+        //输入
+        for (i=0; i&lt;len; ++i)
+        {
+            printf(&quot;请输入第%d个学生的信息:\n&quot;, i+1);
+            printf(&quot;age = &quot;);
+            scanf(&quot;%d&quot;, &amp;pArr[i].age);
+
+            printf(&quot;name = &quot;);
+            scanf(&quot;%s&quot;, pArr[i].name);  //name是数组名，本身就已经是数组首元素的地址, 所以pArr[i].name 不能改成 &amp;pArr[i].name
+
+            printf(&quot;score = &quot;);
+            scanf(&quot;%f&quot;, &amp;pArr[i].score);
+        }
+
+        //按学生成绩升序排序 冒泡算法
+        for (i=0; i&lt;len-1; ++i)
+        {
+            for (j=0; j&lt;len-1-i; ++j)
+            {
+                if (pArr[j].score &gt; pArr[j+1].score) //&gt;升序 &lt;降序
+                {
+                    t = pArr[j];
+                    pArr[j] = pArr[j+1];
+                    pArr[j+1] = t;
+                }
+            }
+        }
+
+        printf(&quot;\n\n学生的信息是:\n&quot;);
+        //输出
+        for (i=0; i&lt;len; ++i)
+        {
+            printf(&quot;第%d个学生的信息是:\n&quot;, i+1);
+            printf(&quot;age = %d\n&quot;, pArr[i].age);
+            printf(&quot;name = %s\n&quot;, pArr[i].name);  //name是数组名，本身就已经是数组首元素的地址, 所以pArr[i].name 不能改成 &amp;pArr[i].name
+            printf(&quot;score = %f\n&quot;, pArr[i].score);
+
+            printf(&quot;\n&quot;);
+        }
+
+        return 0;
+    }  
+
+### 枚举  
+什么是枚举？  
+将一个事物的所有取值一一列举出来  
+#### 枚举的优缺点  
+代码更安全  
+书写麻烦  
+
+枚举举例：  
+
+    # include &lt;stdio.h&gt;
+
+    //只定义了一个数据类型，并没有定义变量， 该数据类型的名字是 enum WeekDay
+    enum WeekDay
+    {
+        MonDay, TuesDay, WednesDay, ThursDay, FriDay, SaturDay, SunDay
+    };
+
+    int main(void)
+    {
+        //int day; //day定义成int类型不合适
+        enum WeekDay day = SunDay;
+        printf(&quot;%d\n&quot;, day);
+
+        return 0;
+    }  
+
+枚举的应用  
+
+    /*
+        对枚举的应用!
+    */
+    # include &lt;stdio.h&gt;
+
+    enum weekday
+    {
+        MonDay, TuesDay, WednesDay, ThursDay, FriDay, SaturDay, SunDay //考虑将WednesDay改为WednesDay = 5之后，MonDay与SunDay的值是多少？
+    };
+
+    void f(enum weekday i) //本函数的目的只是期望接受0～6之间的数字，将形参i定义为枚举型，可以有效的避免传参失误的问题
+    {
+        switch (i)
+        {
+        case 0:
+            printf(&quot;MonDay!\n&quot;);
+            break;
+        case 1:
+            printf(&quot;TuesDay!\n&quot;);
+            break;
+        case 2:
+            printf(&quot;WednesDay!\n&quot;);
+            break;
+        case 3:
+            printf(&quot;ThursDay!\n&quot;);
+            break;
+        case 4:
+            printf(&quot;FriDay!\n&quot;);
+            break;
+        case 5:
+            printf(&quot;SaturDay!\n&quot;);
+            break;
+        case 6:
+            printf(&quot;SunDay!\n&quot;);
+            break;  
+        }          
+    }
+
+    int main(void)
+    {
+        f(FriDay); //虽然FriDay本质上就是5，但直接写成f(5);就是错的， 也不能写成f(10); 考虑为什么！ 嘿嘿
+
+        return 0;
+    }
+
+
+无实际含义的程序  
+
+### 补码  
 
 
 
