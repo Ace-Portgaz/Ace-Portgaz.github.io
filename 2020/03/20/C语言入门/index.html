@@ -16,7 +16,7 @@
 <meta property="og:description" content="前言我是一个刚刚接触C语言的新手，现在仅以博客来记录我每天学习的情况，也可以说是笔记，后来者也可以跟着一起学习。（多思考，多敲代码）">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-03-20T00:55:52.682Z">
-<meta property="article:modified_time" content="2020-05-12T03:19:09.807Z">
+<meta property="article:modified_time" content="2020-05-12T13:02:38.042Z">
 <meta property="article:author" content="Ace-Portgaz">
 <meta property="article:tag" content="C语言入门">
 <meta name="twitter:card" content="summary">
@@ -1795,7 +1795,151 @@ int main(void)
 
     return 0;
 }</code></pre><p>无实际含义的程序  </p>
-<h3 id="补码"><a href="#补码" class="headerlink" title="补码"></a>补码</h3><p><em>END</em></p>
+<h3 id="补码"><a href="#补码" class="headerlink" title="补码"></a>补码</h3><p>已知十进制求二进制  </p>
+<ul>
+<li>求正整数的二进制<br>除2取余，直至商为零，余数倒序排序  </li>
+<li>求负整数的二进制<br>先求与该负数对应的正整数二进制代码，然后所有位取反，末尾加1，不够位数时，左边补1  </li>
+<li>求零的二进制<br>全是零  </li>
+</ul>
+<hr>
+<p>已知二进制求十进制  </p>
+<ul>
+<li>如果首位是0，则表明是正整数<br>按普通方法求  </li>
+<li>如果首位是1，则表明是负整数<br>将所有位取反，末尾加1，所得数字就是该负数的绝对值  </li>
+<li>如果全是0，则对应的十进制数字就是0  </li>
+</ul>
+<hr>
+<pre><code># include &lt;stdio.h&gt;
+
+int main(void)
+{
+//    int i = -100;
+//    printf(&quot;%#X\n&quot;, i); 
+
+    int j = 0xFFFFFFCA;
+    printf(&quot;%d\n&quot;, j);
+    return 0;
+}
+//1001010  </code></pre><p>复习补码  </p>
+<pre><code># include &lt;stdio.h&gt;
+
+int main(void)
+{
+//    int i = -5;
+//    printf(&quot;%#X\n&quot;, i);
+
+//    int j = 0xFFFFFFF5;
+//    printf(&quot;%d\n&quot;, j);
+
+    char ch = 0x80;
+//    printf(&quot;%d\n&quot;, ch);
+
+    ch = 129;// 1000 0000
+    printf(&quot;%d\n&quot;, ch);
+
+    return 0;
+}  </code></pre><h3 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h3><p>应该把下面这个程序看懂  </p>
+<pre><code># include &lt;stdio.h&gt;
+# include &lt;malloc.h&gt;
+# include &lt;stdlib.h&gt;
+
+struct Node
+{
+    int data; //数据域
+    struct Node * pNext; //指针域
+};
+
+//函数声明
+struct Node * create_list(void);
+void traverse_list(struct Node *);
+
+int main(void)
+{
+    struct Node * pHead = NULL; //等价于 struct Node * pHead = NULL;
+
+    pHead = create_list();  //create_list()功能：创建一个非循环单链表，并将该链表的头结点的地址付给pHead
+    traverse_list(pHead);
+
+    return 0;
+}
+
+struct Node * create_list(void)
+{
+    int len;  //用来存放有效节点的个数
+    int i;
+    int val; //用来临时存放用户输入的结点的值
+
+    //分配了一个不存放有效数据的头结点
+    struct Node * pHead = (struct Node *)malloc(sizeof(struct Node));
+    if (NULL == pHead)
+    {
+        printf(&quot;分配失败, 程序终止!\n&quot;);
+        exit(-1);
+    }
+    struct Node * pTail = pHead;
+    pTail-&gt;pNext = NULL;
+
+    printf(&quot;请输入您需要生成的链表节点的个数: len = &quot;);
+    scanf(&quot;%d&quot;, &amp;len);
+
+    for (i=0; i&lt;len; ++i)
+    {
+        printf(&quot;请输入第%d个节点的值: &quot;, i+1);
+        scanf(&quot;%d&quot;, &amp;val);
+
+        struct Node * pNew = (struct Node *)malloc(sizeof(struct Node));
+        if (NULL == pNew)
+        {
+            printf(&quot;分配失败, 程序终止!\n&quot;);
+            exit(-1);  //终止程序
+        }
+        pNew-&gt;data = val;
+        pTail-&gt;pNext = pNew;
+        pNew-&gt;pNext = NULL;
+        pTail = pNew;
+    }
+
+    return pHead;
+}
+
+void traverse_list(struct Node * pHead)
+{
+    struct Node * p = pHead-&gt;pNext;
+
+    while (NULL != p)
+    {
+        printf(&quot;%d  &quot;, p-&gt;data);
+        p = p-&gt;pNext;
+    }
+    printf(&quot;\n&quot;);
+
+    return;
+}  </code></pre><h3 id="位运算符"><a href="#位运算符" class="headerlink" title="位运算符"></a>位运算符</h3><ul>
+<li>&amp;  </li>
+<li>|  </li>
+<li>^  </li>
+<li>~  </li>
+<li>》  </li>
+<li>《  </li>
+</ul>
+<p>&amp;运算符举例：  </p>
+<pre><code># include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int i = -5;
+    int j = 10;
+    int k;
+
+    k = i &amp; j;
+    printf(&quot;%d\n&quot;, k);
+
+    k = i &amp;&amp; j; //k的值只能是1或0， 因为&amp;&amp;是逻辑运算符， 逻辑运算符的结果只能是真或假， 在C中，真用1表示看，假用零表示
+    printf(&quot;%d\n&quot;, k);
+
+    return 0;
+}  </code></pre><h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><p>详情看C程大纲  </p>
+<p><em>The end</em><br>2020年5月12日  </p>
 
       
 
@@ -1944,7 +2088,7 @@ int main(void)
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#C语言"><span class="toc-number">2.</span> <span class="toc-text">C语言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#学习C语言所需要的基础知识"><span class="toc-number">2.0.1.</span> <span class="toc-text">学习C语言所需要的基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#32个关键字"><span class="toc-number">2.0.1.1.</span> <span class="toc-text">32个关键字</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#认识"><span class="toc-number">2.0.2.</span> <span class="toc-text">认识</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#进制（逢r进1）"><span class="toc-number">2.0.3.</span> <span class="toc-text">进制（逢r进1）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2进制"><span class="toc-number">2.0.3.1.</span> <span class="toc-text">2进制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8进制"><span class="toc-number">2.0.3.2.</span> <span class="toc-text">8进制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#16进制"><span class="toc-number">2.0.3.3.</span> <span class="toc-text">16进制</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#变量"><span class="toc-number">2.0.4.</span> <span class="toc-text">变量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#变量初始化"><span class="toc-number">2.0.4.1.</span> <span class="toc-text">变量初始化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#输出符"><span class="toc-number">2.0.4.2.</span> <span class="toc-text">输出符</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#进制转化"><span class="toc-number">2.0.5.</span> <span class="toc-text">进制转化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#printf的用法"><span class="toc-number">2.0.6.</span> <span class="toc-text">printf的用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码规范"><span class="toc-number">2.0.7.</span> <span class="toc-text">代码规范</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#char的用法"><span class="toc-number">2.0.8.</span> <span class="toc-text">char的用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ASCII码"><span class="toc-number">2.0.9.</span> <span class="toc-text">ASCII码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#scanf的用法"><span class="toc-number">2.0.10.</span> <span class="toc-text">scanf的用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#逻辑运算符"><span class="toc-number">2.0.11.</span> <span class="toc-text">逻辑运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#if的用法"><span class="toc-number">2.0.12.</span> <span class="toc-text">if的用法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#两个程序"><span class="toc-number">2.0.12.1.</span> <span class="toc-text">两个程序</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#if常见错误"><span class="toc-number">2.0.12.1.1.</span> <span class="toc-text">if常见错误</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#for循环"><span class="toc-number">2.0.13.</span> <span class="toc-text">for循环</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#for和if的嵌套使用"><span class="toc-number">2.0.13.1.</span> <span class="toc-text">for和if的嵌套使用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#浮点数存储问题"><span class="toc-number">2.0.14.</span> <span class="toc-text">浮点数存储问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多个for嵌套使用示例"><span class="toc-number">2.0.15.</span> <span class="toc-text">多个for嵌套使用示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#逗号表"><span class="toc-number">2.0.16.</span> <span class="toc-text">逗号表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#前自增与后自增的比较"><span class="toc-number">2.0.17.</span> <span class="toc-text">前自增与后自增的比较</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#break的用法"><span class="toc-number">2.0.18.</span> <span class="toc-text">break的用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#switch的用法"><span class="toc-number">2.0.19.</span> <span class="toc-text">switch的用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#continue的用法"><span class="toc-number">2.0.20.</span> <span class="toc-text">continue的用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#do…while用于人机交互"><span class="toc-number">2.0.21.</span> <span class="toc-text">do…while用于人机交互</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#continue与break"><span class="toc-number">2.0.22.</span> <span class="toc-text">continue与break</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数组-不重要"><span class="toc-number">2.0.23.</span> <span class="toc-text">数组(不重要)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数"><span class="toc-number">2.0.24.</span> <span class="toc-text">函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#为什么需要函数"><span class="toc-number">2.0.24.1.</span> <span class="toc-text">为什么需要函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#什么是函数"><span class="toc-number">2.0.24.2.</span> <span class="toc-text">什么是函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#如何定义一个函数"><span class="toc-number">2.0.24.3.</span> <span class="toc-text">如何定义一个函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#return和break的区别"><span class="toc-number">2.0.24.4.</span> <span class="toc-text">return和break的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#函数类型"><span class="toc-number">2.0.24.5.</span> <span class="toc-text">函数类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#函数举例"><span class="toc-number">2.0.24.6.</span> <span class="toc-text">函数举例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数声明"><span class="toc-number">2.0.25.</span> <span class="toc-text">函数声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#形参和实参"><span class="toc-number">2.0.26.</span> <span class="toc-text">形参和实参</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#如何合理设计函数（需要不断模仿牛人的代码）"><span class="toc-number">2.0.27.</span> <span class="toc-text">如何合理设计函数（需要不断模仿牛人的代码）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#举例及改进"><span class="toc-number">2.0.27.1.</span> <span class="toc-text">举例及改进</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#求1到某个数字之间-包括该数字-所有的素数，并将其输出"><span class="toc-number">2.0.27.2.</span> <span class="toc-text">求1到某个数字之间(包括该数字)所有的素数，并将其输出</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#全局变量和局部变量"><span class="toc-number">2.0.28.</span> <span class="toc-text">全局变量和局部变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指针（重点中的重点）"><span class="toc-number">2.0.29.</span> <span class="toc-text">指针（重点中的重点）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#指针的重要性"><span class="toc-number">2.0.29.1.</span> <span class="toc-text">指针的重要性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指针的定义"><span class="toc-number">2.0.30.</span> <span class="toc-text">指针的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指针的分类"><span class="toc-number">2.0.31.</span> <span class="toc-text">指针的分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指针常见的错误"><span class="toc-number">2.0.32.</span> <span class="toc-text">指针常见的错误</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指针热身"><span class="toc-number">2.0.33.</span> <span class="toc-text">指针热身</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指针理解"><span class="toc-number">2.0.34.</span> <span class="toc-text">指针理解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指针与数组"><span class="toc-number">2.0.35.</span> <span class="toc-text">指针与数组</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#指针与一维数组"><span class="toc-number">2.0.35.1.</span> <span class="toc-text">指针与一维数组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#指针与下标的关系"><span class="toc-number">2.0.35.2.</span> <span class="toc-text">指针与下标的关系</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#确定一个数组所需要素"><span class="toc-number">2.0.36.</span> <span class="toc-text">确定一个数组所需要素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一个指针变量究竟占多少个字节"><span class="toc-number">2.0.37.</span> <span class="toc-text">一个指针变量究竟占多少个字节</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指针变量的运算"><span class="toc-number">2.0.38.</span> <span class="toc-text">指针变量的运算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#动态内存分配【重难点】"><span class="toc-number">2.0.39.</span> <span class="toc-text">动态内存分配【重难点】</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#malloc函数的使用"><span class="toc-number">2.0.39.1.</span> <span class="toc-text">malloc函数的使用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#malloc函数的使用（续）"><span class="toc-number">2.0.40.</span> <span class="toc-text">malloc函数的使用（续）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#动态一维数组示例"><span class="toc-number">2.0.40.1.</span> <span class="toc-text">动态一维数组示例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多级指针"><span class="toc-number">2.0.41.</span> <span class="toc-text">多级指针</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#跨函数使用内存"><span class="toc-number">2.0.42.</span> <span class="toc-text">跨函数使用内存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#结构体"><span class="toc-number">2.0.43.</span> <span class="toc-text">结构体</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#定义结构体"><span class="toc-number">2.0.43.1.</span> <span class="toc-text">定义结构体</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#怎样使用结构体变量"><span class="toc-number">2.0.43.2.</span> <span class="toc-text">怎样使用结构体变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#如何取出结构体变量中的每一个成员"><span class="toc-number">2.0.43.3.</span> <span class="toc-text">如何取出结构体变量中的每一个成员</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#结构体变量和结构体指针变量作为函数参数传递的问题"><span class="toc-number">2.0.44.</span> <span class="toc-text">结构体变量和结构体指针变量作为函数参数传递的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#发送地址还是发送内容"><span class="toc-number">2.0.45.</span> <span class="toc-text">发送地址还是发送内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#冒泡排序（应该将该程序背牢）"><span class="toc-number">2.0.46.</span> <span class="toc-text">冒泡排序（应该将该程序背牢）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#学生管理系统"><span class="toc-number">2.0.46.1.</span> <span class="toc-text">学生管理系统</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#枚举"><span class="toc-number">2.0.47.</span> <span class="toc-text">枚举</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#枚举的优缺点"><span class="toc-number">2.0.47.1.</span> <span class="toc-text">枚举的优缺点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#补码"><span class="toc-number">2.0.48.</span> <span class="toc-text">补码</span></a></li></ol></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#C语言"><span class="toc-number">2.</span> <span class="toc-text">C语言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#学习C语言所需要的基础知识"><span class="toc-number">2.0.1.</span> <span class="toc-text">学习C语言所需要的基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#32个关键字"><span class="toc-number">2.0.1.1.</span> <span class="toc-text">32个关键字</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#认识"><span class="toc-number">2.0.2.</span> <span class="toc-text">认识</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#进制（逢r进1）"><span class="toc-number">2.0.3.</span> <span class="toc-text">进制（逢r进1）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2进制"><span class="toc-number">2.0.3.1.</span> <span class="toc-text">2进制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8进制"><span class="toc-number">2.0.3.2.</span> <span class="toc-text">8进制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#16进制"><span class="toc-number">2.0.3.3.</span> <span class="toc-text">16进制</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#变量"><span class="toc-number">2.0.4.</span> <span class="toc-text">变量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#变量初始化"><span class="toc-number">2.0.4.1.</span> <span class="toc-text">变量初始化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#输出符"><span class="toc-number">2.0.4.2.</span> <span class="toc-text">输出符</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#进制转化"><span class="toc-number">2.0.5.</span> <span class="toc-text">进制转化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#printf的用法"><span class="toc-number">2.0.6.</span> <span class="toc-text">printf的用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码规范"><span class="toc-number">2.0.7.</span> <span class="toc-text">代码规范</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#char的用法"><span class="toc-number">2.0.8.</span> <span class="toc-text">char的用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ASCII码"><span class="toc-number">2.0.9.</span> <span class="toc-text">ASCII码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#scanf的用法"><span class="toc-number">2.0.10.</span> <span class="toc-text">scanf的用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#逻辑运算符"><span class="toc-number">2.0.11.</span> <span class="toc-text">逻辑运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#if的用法"><span class="toc-number">2.0.12.</span> <span class="toc-text">if的用法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#两个程序"><span class="toc-number">2.0.12.1.</span> <span class="toc-text">两个程序</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#if常见错误"><span class="toc-number">2.0.12.1.1.</span> <span class="toc-text">if常见错误</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#for循环"><span class="toc-number">2.0.13.</span> <span class="toc-text">for循环</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#for和if的嵌套使用"><span class="toc-number">2.0.13.1.</span> <span class="toc-text">for和if的嵌套使用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#浮点数存储问题"><span class="toc-number">2.0.14.</span> <span class="toc-text">浮点数存储问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多个for嵌套使用示例"><span class="toc-number">2.0.15.</span> <span class="toc-text">多个for嵌套使用示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#逗号表"><span class="toc-number">2.0.16.</span> <span class="toc-text">逗号表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#前自增与后自增的比较"><span class="toc-number">2.0.17.</span> <span class="toc-text">前自增与后自增的比较</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#break的用法"><span class="toc-number">2.0.18.</span> <span class="toc-text">break的用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#switch的用法"><span class="toc-number">2.0.19.</span> <span class="toc-text">switch的用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#continue的用法"><span class="toc-number">2.0.20.</span> <span class="toc-text">continue的用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#do…while用于人机交互"><span class="toc-number">2.0.21.</span> <span class="toc-text">do…while用于人机交互</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#continue与break"><span class="toc-number">2.0.22.</span> <span class="toc-text">continue与break</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数组-不重要"><span class="toc-number">2.0.23.</span> <span class="toc-text">数组(不重要)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数"><span class="toc-number">2.0.24.</span> <span class="toc-text">函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#为什么需要函数"><span class="toc-number">2.0.24.1.</span> <span class="toc-text">为什么需要函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#什么是函数"><span class="toc-number">2.0.24.2.</span> <span class="toc-text">什么是函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#如何定义一个函数"><span class="toc-number">2.0.24.3.</span> <span class="toc-text">如何定义一个函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#return和break的区别"><span class="toc-number">2.0.24.4.</span> <span class="toc-text">return和break的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#函数类型"><span class="toc-number">2.0.24.5.</span> <span class="toc-text">函数类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#函数举例"><span class="toc-number">2.0.24.6.</span> <span class="toc-text">函数举例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数声明"><span class="toc-number">2.0.25.</span> <span class="toc-text">函数声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#形参和实参"><span class="toc-number">2.0.26.</span> <span class="toc-text">形参和实参</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#如何合理设计函数（需要不断模仿牛人的代码）"><span class="toc-number">2.0.27.</span> <span class="toc-text">如何合理设计函数（需要不断模仿牛人的代码）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#举例及改进"><span class="toc-number">2.0.27.1.</span> <span class="toc-text">举例及改进</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#求1到某个数字之间-包括该数字-所有的素数，并将其输出"><span class="toc-number">2.0.27.2.</span> <span class="toc-text">求1到某个数字之间(包括该数字)所有的素数，并将其输出</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#全局变量和局部变量"><span class="toc-number">2.0.28.</span> <span class="toc-text">全局变量和局部变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指针（重点中的重点）"><span class="toc-number">2.0.29.</span> <span class="toc-text">指针（重点中的重点）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#指针的重要性"><span class="toc-number">2.0.29.1.</span> <span class="toc-text">指针的重要性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指针的定义"><span class="toc-number">2.0.30.</span> <span class="toc-text">指针的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指针的分类"><span class="toc-number">2.0.31.</span> <span class="toc-text">指针的分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指针常见的错误"><span class="toc-number">2.0.32.</span> <span class="toc-text">指针常见的错误</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指针热身"><span class="toc-number">2.0.33.</span> <span class="toc-text">指针热身</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指针理解"><span class="toc-number">2.0.34.</span> <span class="toc-text">指针理解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指针与数组"><span class="toc-number">2.0.35.</span> <span class="toc-text">指针与数组</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#指针与一维数组"><span class="toc-number">2.0.35.1.</span> <span class="toc-text">指针与一维数组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#指针与下标的关系"><span class="toc-number">2.0.35.2.</span> <span class="toc-text">指针与下标的关系</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#确定一个数组所需要素"><span class="toc-number">2.0.36.</span> <span class="toc-text">确定一个数组所需要素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一个指针变量究竟占多少个字节"><span class="toc-number">2.0.37.</span> <span class="toc-text">一个指针变量究竟占多少个字节</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指针变量的运算"><span class="toc-number">2.0.38.</span> <span class="toc-text">指针变量的运算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#动态内存分配【重难点】"><span class="toc-number">2.0.39.</span> <span class="toc-text">动态内存分配【重难点】</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#malloc函数的使用"><span class="toc-number">2.0.39.1.</span> <span class="toc-text">malloc函数的使用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#malloc函数的使用（续）"><span class="toc-number">2.0.40.</span> <span class="toc-text">malloc函数的使用（续）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#动态一维数组示例"><span class="toc-number">2.0.40.1.</span> <span class="toc-text">动态一维数组示例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多级指针"><span class="toc-number">2.0.41.</span> <span class="toc-text">多级指针</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#跨函数使用内存"><span class="toc-number">2.0.42.</span> <span class="toc-text">跨函数使用内存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#结构体"><span class="toc-number">2.0.43.</span> <span class="toc-text">结构体</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#定义结构体"><span class="toc-number">2.0.43.1.</span> <span class="toc-text">定义结构体</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#怎样使用结构体变量"><span class="toc-number">2.0.43.2.</span> <span class="toc-text">怎样使用结构体变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#如何取出结构体变量中的每一个成员"><span class="toc-number">2.0.43.3.</span> <span class="toc-text">如何取出结构体变量中的每一个成员</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#结构体变量和结构体指针变量作为函数参数传递的问题"><span class="toc-number">2.0.44.</span> <span class="toc-text">结构体变量和结构体指针变量作为函数参数传递的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#发送地址还是发送内容"><span class="toc-number">2.0.45.</span> <span class="toc-text">发送地址还是发送内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#冒泡排序（应该将该程序背牢）"><span class="toc-number">2.0.46.</span> <span class="toc-text">冒泡排序（应该将该程序背牢）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#学生管理系统"><span class="toc-number">2.0.46.1.</span> <span class="toc-text">学生管理系统</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#枚举"><span class="toc-number">2.0.47.</span> <span class="toc-text">枚举</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#枚举的优缺点"><span class="toc-number">2.0.47.1.</span> <span class="toc-text">枚举的优缺点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#补码"><span class="toc-number">2.0.48.</span> <span class="toc-text">补码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#链表"><span class="toc-number">2.0.49.</span> <span class="toc-text">链表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#位运算符"><span class="toc-number">2.0.50.</span> <span class="toc-text">位运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#算法"><span class="toc-number">2.0.51.</span> <span class="toc-text">算法</span></a></li></ol></li></ol></li></ol>
                     </div>
                 </span>
             </div>
